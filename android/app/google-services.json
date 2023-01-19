@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "776668355888",
+    "project_id": "to1diet",
+    "storage_bucket": "to1diet.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:776668355888:android:3e8f54dd14a18ba88c3cf5",
+        "android_client_info": {
+          "package_name": "com.mycompany.my5to1diet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "776668355888-ukv3lu8leq0mlfs8746sr4mi1c4dtvro.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mycompany.my5to1diet",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "776668355888-mqi33g4i1gen1i3as47tiud5b2qosc8u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBZNTCZENtyQQmS6pk5s1RKM6UOw1UbeE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "776668355888-mqi33g4i1gen1i3as47tiud5b2qosc8u.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "776668355888-m9j5cbtig1qbd1jsghsgpvac8r6d90k9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mycompany.my5to1diet"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
