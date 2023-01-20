@@ -30,13 +30,35 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
-      errorBuilder: (context, _) => NavBarPage(),
+      errorBuilder: (context, _) => FoodFormWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => NavBarPage(),
+          builder: (context, _) => FoodFormWidget(),
           routes: [
+            FFRoute(
+              name: 'Foods',
+              path: 'foods',
+              builder: (context, params) => params.isEmpty
+                  ? NavBarPage(initialPage: 'Foods')
+                  : FoodsWidget(),
+            ),
+            FFRoute(
+              name: 'FoodForm',
+              path: 'foodForm',
+              builder: (context, params) => FoodFormWidget(
+                receiveFromFoods: params.getParam('receiveFromFoods',
+                    ParamType.DocumentReference, false, ['Foods']),
+              ),
+            ),
+            FFRoute(
+              name: 'FoodFormAdd',
+              path: 'foodFormAdd',
+              builder: (context, params) => params.isEmpty
+                  ? NavBarPage(initialPage: 'FoodFormAdd')
+                  : FoodFormAddWidget(),
+            ),
             FFRoute(
               name: 'HomePage',
               path: 'homePage',
@@ -45,23 +67,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   : HomePageWidget(),
             ),
             FFRoute(
-              name: 'FoodForm',
-              path: 'foodForm',
-              builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'FoodForm')
-                  : FoodFormWidget(
-                      foodsDetailReceive: params.getParam('foodsDetailReceive',
-                          ParamType.DocumentReference, false, ['Foods']),
-                      foodFromRef: params.getParam('foodFromRef',
-                          ParamType.DocumentReference, false, ['Foods']),
-                    ),
-            ),
-            FFRoute(
-              name: 'FoodsList',
-              path: 'foodsList',
-              builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'FoodsList')
-                  : FoodsListWidget(),
+              name: 'BetterFoodsList',
+              path: 'betterFoodsList',
+              builder: (context, params) => BetterFoodsListWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),

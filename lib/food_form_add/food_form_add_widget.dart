@@ -2,73 +2,56 @@ import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class FoodFormWidget extends StatefulWidget {
-  const FoodFormWidget({
-    Key? key,
-    this.receiveFromFoods,
-  }) : super(key: key);
-
-  final DocumentReference? receiveFromFoods;
+class FoodFormAddWidget extends StatefulWidget {
+  const FoodFormAddWidget({Key? key}) : super(key: key);
 
   @override
-  _FoodFormWidgetState createState() => _FoodFormWidgetState();
+  _FoodFormAddWidgetState createState() => _FoodFormAddWidgetState();
 }
 
-class _FoodFormWidgetState extends State<FoodFormWidget> {
-  TextEditingController? textController1;
-  TextEditingController? textController2;
+class _FoodFormAddWidgetState extends State<FoodFormAddWidget> {
+  TextEditingController? calloriesFoodController;
+  TextEditingController? nameFoodController;
   final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-
+    calloriesFoodController = TextEditingController();
+    nameFoodController = TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
   void dispose() {
     _unfocusNode.dispose();
-    textController1?.dispose();
-    textController2?.dispose();
+    calloriesFoodController?.dispose();
+    nameFoodController?.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<FoodsRecord>(
-      stream: FoodsRecord.getDocument(widget.receiveFromFoods!),
-      builder: (context, snapshot) {
-        // Customize what your widget looks like when it's loading.
-        if (!snapshot.hasData) {
-          return Center(
-            child: SizedBox(
-              width: 50,
-              height: 50,
-              child: CircularProgressIndicator(
-                color: FlutterFlowTheme.of(context).primaryColor,
-              ),
-            ),
-          );
-        }
-        final foodFormFoodsRecord = snapshot.data!;
-        return Scaffold(
-          key: scaffoldKey,
-          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-          appBar: PreferredSize(
-            preferredSize: Size.fromHeight(100),
-            child: AppBar(
-              backgroundColor: FlutterFlowTheme.of(context).primaryColor,
-              automaticallyImplyLeading: false,
-              actions: [],
-              flexibleSpace: FlexibleSpaceBar(
-                title: Padding(
+    return Scaffold(
+      key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(100),
+        child: AppBar(
+          backgroundColor: FlutterFlowTheme.of(context).primaryColor,
+          automaticallyImplyLeading: false,
+          actions: [],
+          flexibleSpace: FlexibleSpaceBar(
+            title: Stack(
+              children: [
+                Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 14),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
@@ -82,20 +65,16 @@ class _FoodFormWidgetState extends State<FoodFormWidget> {
                           children: [
                             Padding(
                               padding:
-                                  EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
-                              child: FlutterFlowIconButton(
-                                borderColor: Colors.transparent,
-                                borderRadius: 30,
-                                borderWidth: 1,
-                                buttonSize: 50,
-                                icon: Icon(
-                                  Icons.arrow_back_rounded,
-                                  color: Colors.white,
-                                  size: 30,
-                                ),
-                                onPressed: () async {
-                                  context.pop();
-                                },
+                                  EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
+                              child: Text(
+                                'Back',
+                                style: FlutterFlowTheme.of(context)
+                                    .title2
+                                    .override(
+                                      fontFamily: 'Poppins',
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                    ),
                               ),
                             ),
                           ],
@@ -104,7 +83,7 @@ class _FoodFormWidgetState extends State<FoodFormWidget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
                         child: Text(
-                          foodFormFoodsRecord.foodName!,
+                          'Page Title',
                           style: FlutterFlowTheme.of(context).title2.override(
                                 fontFamily: 'Poppins',
                                 color: Colors.white,
@@ -115,27 +94,51 @@ class _FoodFormWidgetState extends State<FoodFormWidget> {
                     ],
                   ),
                 ),
-                centerTitle: true,
-                expandedTitleScale: 1.0,
-              ),
-              elevation: 2,
+                Align(
+                  alignment: AlignmentDirectional(0.07, 1.09),
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                    child: FlutterFlowIconButton(
+                      borderColor: Colors.transparent,
+                      borderRadius: 30,
+                      borderWidth: 1,
+                      buttonSize: 50,
+                      icon: Icon(
+                        Icons.arrow_back_rounded,
+                        color: Colors.white,
+                        size: 30,
+                      ),
+                      onPressed: () {
+                        print('IconButton pressed ...');
+                      },
+                    ),
+                  ),
+                ),
+              ],
             ),
+            centerTitle: true,
+            expandedTitleScale: 1.0,
           ),
-          body: SafeArea(
-            child: GestureDetector(
-              onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
+          elevation: 2,
+        ),
+      ),
+      body: SafeArea(
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              ListView(
+                padding: EdgeInsets.zero,
+                shrinkWrap: true,
+                scrollDirection: Axis.vertical,
                 children: [
                   TextFormField(
-                    controller: textController1 ??= TextEditingController(
-                      text: foodFormFoodsRecord.foodName,
-                    ),
+                    controller: nameFoodController,
                     autofocus: true,
                     obscureText: false,
                     decoration: InputDecoration(
-                      labelText: 'Name',
-                      hintText: '[Some hint text...]',
+                      hintText: 'Name of food\n',
                       hintStyle: FlutterFlowTheme.of(context).bodyText2,
                       enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(
@@ -181,14 +184,11 @@ class _FoodFormWidgetState extends State<FoodFormWidget> {
                     style: FlutterFlowTheme.of(context).bodyText1,
                   ),
                   TextFormField(
-                    controller: textController2 ??= TextEditingController(
-                      text: foodFormFoodsRecord.foodCalories?.toString(),
-                    ),
+                    controller: calloriesFoodController,
                     autofocus: true,
                     obscureText: false,
                     decoration: InputDecoration(
-                      labelText: 'Calories',
-                      hintText: '[Some hint text...]',
+                      hintText: 'Number of calories\n\n',
                       hintStyle: FlutterFlowTheme.of(context).bodyText2,
                       enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(
@@ -232,14 +232,38 @@ class _FoodFormWidgetState extends State<FoodFormWidget> {
                       ),
                     ),
                     style: FlutterFlowTheme.of(context).bodyText1,
-                    keyboardType: TextInputType.number,
                   ),
                 ],
               ),
-            ),
+              FFButtonWidget(
+                onPressed: () async {
+                  final foodsCreateData = createFoodsRecordData(
+                    foodName: nameFoodController!.text,
+                    foodCalories:
+                        double.tryParse(calloriesFoodController!.text),
+                  );
+                  await FoodsRecord.collection.doc().set(foodsCreateData);
+                },
+                text: 'add item',
+                options: FFButtonOptions(
+                  width: 130,
+                  height: 40,
+                  color: FlutterFlowTheme.of(context).primaryColor,
+                  textStyle: FlutterFlowTheme.of(context).subtitle2.override(
+                        fontFamily: 'Poppins',
+                        color: Colors.white,
+                      ),
+                  borderSide: BorderSide(
+                    color: Colors.transparent,
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+            ],
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }

@@ -89,7 +89,7 @@ class NavBarPage extends StatefulWidget {
 
 /// This is the private State class that goes with NavBarPage.
 class _NavBarPageState extends State<NavBarPage> {
-  String _currentPageName = 'FoodsList';
+  String _currentPageName = 'Foods';
   late Widget? _currentPage;
 
   @override
@@ -102,8 +102,8 @@ class _NavBarPageState extends State<NavBarPage> {
   @override
   Widget build(BuildContext context) {
     final tabs = {
-      'FoodsList': FoodsListWidget(),
-      'FoodForm': FoodFormWidget(),
+      'Foods': FoodsWidget(),
+      'FoodFormAdd': FoodFormAddWidget(),
       'HomePage': HomePageWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
@@ -132,13 +132,13 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.home_outlined,
+                  Icons.food_bank_outlined,
                   color:
                       currentIndex == 0 ? Color(0x00000000) : Color(0x00000000),
                   size: 24,
                 ),
                 Text(
-                  'Home',
+                  'Foods',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 0
@@ -161,7 +161,7 @@ class _NavBarPageState extends State<NavBarPage> {
                   size: 24,
                 ),
                 Text(
-                  'Form2',
+                  'Add Food',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 1

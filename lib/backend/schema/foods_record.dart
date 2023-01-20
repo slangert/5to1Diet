@@ -31,10 +31,8 @@ abstract class FoodsRecord implements Built<FoodsRecord, FoodsRecordBuilder> {
 
   double? get foodSodium;
 
-  @BuiltValueField(wireName: 'FoodCholesterol')
-  int? get foodCholesterol;
+  double? get foodCholesterol;
 
-  @BuiltValueField(wireName: 'FoodSugar')
   double? get foodSugar;
 
   @BuiltValueField(wireName: kDocumentReferenceField)
@@ -53,7 +51,7 @@ abstract class FoodsRecord implements Built<FoodsRecord, FoodsRecordBuilder> {
     ..foodFat = 0.0
     ..foodSaturatedFat = 0.0
     ..foodSodium = 0.0
-    ..foodCholesterol = 0
+    ..foodCholesterol = 0.0
     ..foodSugar = 0.0;
 
   static CollectionReference get collection =>
@@ -89,7 +87,7 @@ Map<String, dynamic> createFoodsRecordData({
   double? foodFat,
   double? foodSaturatedFat,
   double? foodSodium,
-  int? foodCholesterol,
+  double? foodCholesterol,
   double? foodSugar,
 }) {
   final firestoreData = serializers.toFirestore(

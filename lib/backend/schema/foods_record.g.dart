@@ -99,13 +99,14 @@ class _$FoodsRecordSerializer implements StructuredSerializer<FoodsRecord> {
     value = object.foodCholesterol;
     if (value != null) {
       result
-        ..add('FoodCholesterol')
-        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+        ..add('foodCholesterol')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(double)));
     }
     value = object.foodSugar;
     if (value != null) {
       result
-        ..add('FoodSugar')
+        ..add('foodSugar')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(double)));
     }
@@ -175,11 +176,11 @@ class _$FoodsRecordSerializer implements StructuredSerializer<FoodsRecord> {
           result.foodSodium = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double?;
           break;
-        case 'FoodCholesterol':
+        case 'foodCholesterol':
           result.foodCholesterol = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int?;
+              specifiedType: const FullType(double)) as double?;
           break;
-        case 'FoodSugar':
+        case 'foodSugar':
           result.foodSugar = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double?;
           break;
@@ -220,7 +221,7 @@ class _$FoodsRecord extends FoodsRecord {
   @override
   final double? foodSodium;
   @override
-  final int? foodCholesterol;
+  final double? foodCholesterol;
   @override
   final double? foodSugar;
   @override
@@ -378,9 +379,9 @@ class FoodsRecordBuilder implements Builder<FoodsRecord, FoodsRecordBuilder> {
   double? get foodSodium => _$this._foodSodium;
   set foodSodium(double? foodSodium) => _$this._foodSodium = foodSodium;
 
-  int? _foodCholesterol;
-  int? get foodCholesterol => _$this._foodCholesterol;
-  set foodCholesterol(int? foodCholesterol) =>
+  double? _foodCholesterol;
+  double? get foodCholesterol => _$this._foodCholesterol;
+  set foodCholesterol(double? foodCholesterol) =>
       _$this._foodCholesterol = foodCholesterol;
 
   double? _foodSugar;
