@@ -67,44 +67,52 @@ class _FoodDataTable2WidgetState extends State<FoodDataTable2Widget> {
                 );
               }
               List<FoodsRecord> columnFoodsRecordList = snapshot.data!;
-              return Column(
-                mainAxisSize: MainAxisSize.max,
-                children:
-                    List.generate(columnFoodsRecordList.length, (columnIndex) {
-                  final columnFoodsRecord = columnFoodsRecordList[columnIndex];
-                  return ListView(
-                    padding: EdgeInsets.zero,
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    children: [
-                      InkWell(
-                        onTap: () async {
-                          context.pushNamed(
-                            'FoodForm2',
-                            queryParams: {
-                              'foodsDetailReceive': serializeParam(
-                                columnFoodsRecord.reference,
-                                ParamType.DocumentReference,
+              return SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: List.generate(columnFoodsRecordList.length,
+                      (columnIndex) {
+                    final columnFoodsRecord =
+                        columnFoodsRecordList[columnIndex];
+                    return ListView(
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      children: [
+                        Padding(
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                          child: InkWell(
+                            onTap: () async {
+                              context.pushNamed(
+                                'FoodForm2',
+                                queryParams: {
+                                  'foodsDetailReceive': serializeParam(
+                                    columnFoodsRecord.reference,
+                                    ParamType.DocumentReference,
+                                  ),
+                                }.withoutNulls,
+                              );
+                            },
+                            child: Card(
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              color: Color(0xFFF5F5F5),
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    20, 20, 20, 20),
+                                child: Text(
+                                  columnFoodsRecord.foodName!,
+                                  style: FlutterFlowTheme.of(context).bodyText1,
+                                ),
                               ),
-                            }.withoutNulls,
-                          );
-                        },
-                        child: Card(
-                          clipBehavior: Clip.antiAliasWithSaveLayer,
-                          color: Color(0xFFF5F5F5),
-                          child: Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(20, 20, 20, 20),
-                            child: Text(
-                              columnFoodsRecord.foodName!,
-                              style: FlutterFlowTheme.of(context).bodyText1,
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  );
-                }),
+                      ],
+                    );
+                  }),
+                ),
               );
             },
           ),
