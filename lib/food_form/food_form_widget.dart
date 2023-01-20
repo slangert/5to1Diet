@@ -1,22 +1,28 @@
 import '../backend/backend.dart';
+import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class FoodFormWidget extends StatefulWidget {
   const FoodFormWidget({
     Key? key,
-    this.foodName,
+    this.foodsDetailReceive,
+    this.foodFromRef,
   }) : super(key: key);
 
-  final FoodsRecord? foodName;
+  final DocumentReference? foodsDetailReceive;
+  final DocumentReference? foodFromRef;
 
   @override
   _FoodFormWidgetState createState() => _FoodFormWidgetState();
 }
 
 class _FoodFormWidgetState extends State<FoodFormWidget> {
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -27,309 +33,160 @@ class _FoodFormWidgetState extends State<FoodFormWidget> {
   }
 
   @override
+  void dispose() {
+    _unfocusNode.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-      body: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Container(
-                  height: 240,
-                  child: Stack(
-                    alignment: AlignmentDirectional(-0.95, -0.7),
+    return StreamBuilder<FoodsRecord>(
+      stream: FoodsRecord.getDocument(widget.foodsDetailReceive!),
+      builder: (context, snapshot) {
+        // Customize what your widget looks like when it's loading.
+        if (!snapshot.hasData) {
+          return Center(
+            child: SizedBox(
+              width: 50,
+              height: 50,
+              child: CircularProgressIndicator(
+                color: FlutterFlowTheme.of(context).primaryColor,
+              ),
+            ),
+          );
+        }
+        final foodFormFoodsRecord = snapshot.data!;
+        return Scaffold(
+          key: scaffoldKey,
+          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(100),
+            child: AppBar(
+              backgroundColor: FlutterFlowTheme.of(context).primaryColor,
+              automaticallyImplyLeading: false,
+              actions: [],
+              flexibleSpace: FlexibleSpaceBar(
+                title: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 14),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Align(
-                        alignment: AlignmentDirectional(0, 0),
-                        child: Image.asset(
-                          'assets/images/ECED2980-86B9-4713-9459-9EE622B04DD8.JPG',
-                          width: MediaQuery.of(context).size.width,
-                          height: 240,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      Align(
-                        alignment: AlignmentDirectional(-0.95, -0.55),
-                        child: InkWell(
-                          onTap: () async {
-                            context.pop();
-                          },
-                          child: Card(
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            color: Color(0xFFF5F5F5),
-                            elevation: 3,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(100),
-                            ),
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  10, 10, 10, 10),
-                              child: Icon(
-                                Icons.arrow_back_rounded,
-                                color:
-                                    FlutterFlowTheme.of(context).primaryColor,
-                                size: 24,
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 8),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                              child: FlutterFlowIconButton(
+                                borderColor: Colors.transparent,
+                                borderRadius: 30,
+                                borderWidth: 1,
+                                buttonSize: 50,
+                                icon: Icon(
+                                  Icons.arrow_back_rounded,
+                                  color: Colors.white,
+                                  size: 30,
+                                ),
+                                onPressed: () {
+                                  print('IconButton pressed ...');
+                                },
                               ),
                             ),
-                          ),
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
+                              child: Text(
+                                'Back',
+                                style: FlutterFlowTheme.of(context)
+                                    .title2
+                                    .override(
+                                      fontFamily: 'Poppins',
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                    ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
+                        child: Text(
+                          'Page Title',
+                          style: FlutterFlowTheme.of(context).title2.override(
+                                fontFamily: 'Poppins',
+                                color: Colors.white,
+                                fontSize: 22,
+                              ),
                         ),
                       ),
                     ],
                   ),
                 ),
+                centerTitle: true,
+                expandedTitleScale: 1.0,
               ),
-            ],
-          ),
-          Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(20, 16, 20, 0),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Column(
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Coffee Name',
-                      style: FlutterFlowTheme.of(context).bodyText2,
-                    ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
-                      child: Text(
-                        widget.foodName!.foodName!,
-                        textAlign: TextAlign.start,
-                        style: FlutterFlowTheme.of(context).title2,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+              elevation: 2,
             ),
           ),
-          Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(20, 8, 20, 0),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Column(
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Coffee (g)',
-                      style: FlutterFlowTheme.of(context).bodyText2,
-                    ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
-                      child: Text(
-                        widget.foodName!.foodCalories!.toString(),
-                        textAlign: TextAlign.start,
-                        style: FlutterFlowTheme.of(context).subtitle1,
-                      ),
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(32, 0, 0, 0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+          body: SafeArea(
+            child: GestureDetector(
+              onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  ListView(
+                    padding: EdgeInsets.zero,
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
                     children: [
-                      Text(
-                        'Water (g)',
-                        style: FlutterFlowTheme.of(context).bodyText2,
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                        child: Text(
+                          foodFormFoodsRecord.foodName!,
+                          style: FlutterFlowTheme.of(context).bodyText1,
+                        ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
+                        padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                         child: Text(
-                          '456g',
-                          textAlign: TextAlign.start,
-                          style: FlutterFlowTheme.of(context).subtitle1,
+                          foodFormFoodsRecord.foodTextServingSize!,
+                          style: FlutterFlowTheme.of(context).bodyText1,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                        child: Text(
+                          foodFormFoodsRecord.foodCarbs!.toString(),
+                          style: FlutterFlowTheme.of(context).bodyText1,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                        child: Text(
+                          foodFormFoodsRecord.foodFiber!.toString(),
+                          style: FlutterFlowTheme.of(context).bodyText1,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                        child: Text(
+                          foodFormFoodsRecord.food5to1!.toString(),
+                          style: FlutterFlowTheme.of(context).bodyText1,
                         ),
                       ),
                     ],
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(32, 0, 0, 0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Ratio',
-                        style: FlutterFlowTheme.of(context).bodyText2,
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
-                        child: Text(
-                          '1/17',
-                          textAlign: TextAlign.start,
-                          style: FlutterFlowTheme.of(context).subtitle1,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-          Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(20, 16, 20, 0),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Brew Time',
-                        style: FlutterFlowTheme.of(context).bodyText2,
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
-                        child: Text(
-                          '4:30',
-                          textAlign: TextAlign.start,
-                          style: FlutterFlowTheme.of(context).subtitle2,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Rating',
-                        style: FlutterFlowTheme.of(context).bodyText2,
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
-                            child: Text(
-                              '6',
-                              textAlign: TextAlign.start,
-                              style: FlutterFlowTheme.of(context).subtitle2,
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
-                            child: Icon(
-                              Icons.star_rate_rounded,
-                              color: FlutterFlowTheme.of(context).primaryColor,
-                              size: 32,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(20, 16, 20, 0),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Grind Size',
-                        style: FlutterFlowTheme.of(context).bodyText2,
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
-                        child: Text(
-                          '6.5',
-                          textAlign: TextAlign.start,
-                          style: FlutterFlowTheme.of(context).subtitle2,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Grinder Used',
-                        style: FlutterFlowTheme.of(context).bodyText2,
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
-                        child: Text(
-                          'Ode Grinder',
-                          textAlign: TextAlign.start,
-                          style: FlutterFlowTheme.of(context).subtitle2,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(20, 16, 20, 0),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Coffee Notes',
-                        style: FlutterFlowTheme.of(context).bodyText2,
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
-                        child: Text(
-                          'The coffee was decent with notes of caramel, lemongrass, slight hit of berry.\n',
-                          textAlign: TextAlign.start,
-                          style: FlutterFlowTheme.of(context).subtitle2,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Divider(),
-        ],
-      ),
+        );
+      },
     );
   }
 }

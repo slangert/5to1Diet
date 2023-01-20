@@ -47,44 +47,21 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'FoodForm',
               path: 'foodForm',
-              asyncParams: {
-                'foodName': getDoc(['Foods'], FoodsRecord.serializer),
-              },
               builder: (context, params) => params.isEmpty
                   ? NavBarPage(initialPage: 'FoodForm')
                   : FoodFormWidget(
-                      foodName: params.getParam('foodName', ParamType.Document),
-                    ),
-            ),
-            FFRoute(
-              name: 'FoodDataTable',
-              path: 'foodDataTable',
-              builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'FoodDataTable')
-                  : FoodDataTableWidget(
-                      foodDataTableOriginal: params.getParam(
-                          'foodDataTableOriginal',
-                          ParamType.DocumentReference,
-                          false,
-                          ['Foods']),
-                    ),
-            ),
-            FFRoute(
-              name: 'FoodForm2',
-              path: 'foodForm2',
-              builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'FoodForm2')
-                  : FoodForm2Widget(
                       foodsDetailReceive: params.getParam('foodsDetailReceive',
+                          ParamType.DocumentReference, false, ['Foods']),
+                      foodFromRef: params.getParam('foodFromRef',
                           ParamType.DocumentReference, false, ['Foods']),
                     ),
             ),
             FFRoute(
-              name: 'FoodDataTable2',
-              path: 'foodDataTable2',
+              name: 'FoodsList',
+              path: 'foodsList',
               builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'FoodDataTable2')
-                  : FoodDataTable2Widget(),
+                  ? NavBarPage(initialPage: 'FoodsList')
+                  : FoodsListWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),
