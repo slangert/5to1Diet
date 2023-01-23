@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "776668355888-kil3g6hcc9gah1anrk68pknprnvgdn3k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mycompany.my5to1diet",
+            "certificate_hash": "3c7d9593230596d31160a73bf02ccfa195f10aaf"
+          }
+        },
+        {
           "client_id": "776668355888-ukv3lu8leq0mlfs8746sr4mi1c4dtvro.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -22,7 +30,7 @@
           }
         },
         {
-          "client_id": "776668355888-mqi33g4i1gen1i3as47tiud5b2qosc8u.apps.googleusercontent.com",
+          "client_id": "776668355888-oge2322b3ne6loiss993cmtu9juolhec.apps.googleusercontent.com",
           "client_type": 3
         }
       ],

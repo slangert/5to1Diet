@@ -21,7 +21,7 @@ class _FoodsWidgetState extends State<FoodsWidget> {
   @override
   void initState() {
     super.initState();
-
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'Foods'});
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -36,6 +36,26 @@ class _FoodsWidgetState extends State<FoodsWidget> {
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+      floatingActionButton: Semantics(
+        label: 'Add new food items',
+        child: FloatingActionButton.extended(
+          onPressed: () async {
+            logFirebaseEvent('FOODS_FloatingActionButton_h11626ng_ON_T');
+            logFirebaseEvent('FloatingActionButton_navigate_to');
+
+            context.pushNamed('FoodFormAdd');
+          },
+          backgroundColor: FlutterFlowTheme.of(context).primaryColor,
+          icon: Icon(
+            Icons.add,
+          ),
+          elevation: 8,
+          label: Text(
+            'Add a Food Item',
+            style: FlutterFlowTheme.of(context).bodyText1,
+          ),
+        ),
+      ),
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(100),
         child: AppBar(
@@ -157,6 +177,9 @@ class _FoodsWidgetState extends State<FoodsWidget> {
                       ),
                       FFButtonWidget(
                         onPressed: () async {
+                          logFirebaseEvent('FOODS_PAGE_ADD_ITEM_BTN_ON_TAP');
+                          logFirebaseEvent('Button_navigate_to');
+
                           context.pushNamed('FoodFormAdd');
                         },
                         text: 'Add item',
@@ -237,6 +260,10 @@ class _FoodsWidgetState extends State<FoodsWidget> {
                                 EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                             child: InkWell(
                               onTap: () async {
+                                logFirebaseEvent(
+                                    'FOODS_PAGE_Card_lpkzst06_ON_TAP');
+                                logFirebaseEvent('Card_navigate_to');
+
                                 context.pushNamed(
                                   'FoodForm',
                                   queryParams: {
@@ -257,7 +284,7 @@ class _FoodsWidgetState extends State<FoodsWidget> {
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             5, 5, 5, 5),
-                                        child: AutoSizeText(
+                                        child: Text(
                                           columnFoodsRecord.foodName!,
                                           style: FlutterFlowTheme.of(context)
                                               .bodyText1,
@@ -268,7 +295,7 @@ class _FoodsWidgetState extends State<FoodsWidget> {
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             5, 5, 5, 5),
-                                        child: Text(
+                                        child: AutoSizeText(
                                           columnFoodsRecord.foodCarbs!
                                               .toString(),
                                           style: FlutterFlowTheme.of(context)

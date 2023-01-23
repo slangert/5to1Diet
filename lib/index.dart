@@ -1,4 +1,6 @@
 // Export pages
+export 'login/login_widget.dart' show LoginWidget;
+export 'dashboard/dashboard_widget.dart' show DashboardWidget;
 export 'foods/foods_widget.dart' show FoodsWidget;
 export 'food_form/food_form_widget.dart' show FoodFormWidget;
 export 'food_form_add/food_form_add_widget.dart' show FoodFormAddWidget;

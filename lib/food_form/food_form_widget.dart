@@ -1,7 +1,9 @@
+import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -28,7 +30,7 @@ class _FoodFormWidgetState extends State<FoodFormWidget> {
   @override
   void initState() {
     super.initState();
-
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'FoodForm'});
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -61,6 +63,27 @@ class _FoodFormWidgetState extends State<FoodFormWidget> {
         return Scaffold(
           key: scaffoldKey,
           backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+          floatingActionButton: FloatingActionButton.extended(
+            onPressed: () async {
+              logFirebaseEvent('FOOD_FORM_FloatingActionButton_yfp6pfav_');
+              logFirebaseEvent('FloatingActionButton_backend_call');
+
+              final foodsUpdateData = createFoodsRecordData(
+                foodName: textController2?.text ?? '',
+                foodCalories: double.tryParse(textController1?.text ?? ''),
+              );
+              await foodFormFoodsRecord.reference.update(foodsUpdateData);
+            },
+            backgroundColor: FlutterFlowTheme.of(context).primaryColor,
+            icon: FaIcon(
+              FontAwesomeIcons.solidThumbsUp,
+            ),
+            elevation: 8,
+            label: Text(
+              'Update Changes',
+              style: FlutterFlowTheme.of(context).bodyText1,
+            ),
+          ),
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(100),
             child: AppBar(
@@ -94,8 +117,46 @@ class _FoodFormWidgetState extends State<FoodFormWidget> {
                                   size: 30,
                                 ),
                                 onPressed: () async {
+                                  logFirebaseEvent(
+                                      'FOOD_FORM_arrow_back_rounded_ICN_ON_TAP');
+                                  logFirebaseEvent('IconButton_navigate_back');
                                   context.pop();
                                 },
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(90, 0, 0, 0),
+                              child: FFButtonWidget(
+                                onPressed: () async {
+                                  logFirebaseEvent(
+                                      'FOOD_FORM_PAGE_DELETE_FOOD_BTN_ON_TAP');
+                                  logFirebaseEvent('Button_backend_call');
+                                  await foodFormFoodsRecord.reference.delete();
+                                  logFirebaseEvent('Button_navigate_back');
+                                  context.pop();
+                                },
+                                text: 'Delete Food',
+                                icon: Icon(
+                                  Icons.thumb_down_alt,
+                                  size: 15,
+                                ),
+                                options: FFButtonOptions(
+                                  width: 180,
+                                  height: 40,
+                                  color: Color(0xFFE7143F),
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .subtitle2
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: Colors.white,
+                                      ),
+                                  borderSide: BorderSide(
+                                    color: Colors.transparent,
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
                               ),
                             ),
                           ],
@@ -104,7 +165,7 @@ class _FoodFormWidgetState extends State<FoodFormWidget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
                         child: Text(
-                          foodFormFoodsRecord.foodName!,
+                          'Food Detail',
                           style: FlutterFlowTheme.of(context).title2.override(
                                 fontFamily: 'Poppins',
                                 color: Colors.white,
@@ -129,59 +190,6 @@ class _FoodFormWidgetState extends State<FoodFormWidget> {
                 children: [
                   TextFormField(
                     controller: textController1 ??= TextEditingController(
-                      text: foodFormFoodsRecord.foodName,
-                    ),
-                    autofocus: true,
-                    obscureText: false,
-                    decoration: InputDecoration(
-                      labelText: 'Name',
-                      hintText: '[Some hint text...]',
-                      hintStyle: FlutterFlowTheme.of(context).bodyText2,
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0x00000000),
-                          width: 1,
-                        ),
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(4.0),
-                          topRight: Radius.circular(4.0),
-                        ),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0x00000000),
-                          width: 1,
-                        ),
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(4.0),
-                          topRight: Radius.circular(4.0),
-                        ),
-                      ),
-                      errorBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0x00000000),
-                          width: 1,
-                        ),
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(4.0),
-                          topRight: Radius.circular(4.0),
-                        ),
-                      ),
-                      focusedErrorBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0x00000000),
-                          width: 1,
-                        ),
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(4.0),
-                          topRight: Radius.circular(4.0),
-                        ),
-                      ),
-                    ),
-                    style: FlutterFlowTheme.of(context).bodyText1,
-                  ),
-                  TextFormField(
-                    controller: textController2 ??= TextEditingController(
                       text: foodFormFoodsRecord.foodCalories?.toString(),
                     ),
                     autofocus: true,
@@ -233,6 +241,59 @@ class _FoodFormWidgetState extends State<FoodFormWidget> {
                     ),
                     style: FlutterFlowTheme.of(context).bodyText1,
                     keyboardType: TextInputType.number,
+                  ),
+                  TextFormField(
+                    controller: textController2 ??= TextEditingController(
+                      text: foodFormFoodsRecord.foodName,
+                    ),
+                    autofocus: true,
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      labelText: 'Name',
+                      hintText: '[Some hint text...]',
+                      hintStyle: FlutterFlowTheme.of(context).bodyText2,
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0x00000000),
+                          width: 1,
+                        ),
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(4.0),
+                          topRight: Radius.circular(4.0),
+                        ),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0x00000000),
+                          width: 1,
+                        ),
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(4.0),
+                          topRight: Radius.circular(4.0),
+                        ),
+                      ),
+                      errorBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0x00000000),
+                          width: 1,
+                        ),
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(4.0),
+                          topRight: Radius.circular(4.0),
+                        ),
+                      ),
+                      focusedErrorBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0x00000000),
+                          width: 1,
+                        ),
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(4.0),
+                          topRight: Radius.circular(4.0),
+                        ),
+                      ),
+                    ),
+                    style: FlutterFlowTheme.of(context).bodyText1,
                   ),
                 ],
               ),

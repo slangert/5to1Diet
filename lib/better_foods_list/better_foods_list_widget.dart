@@ -19,6 +19,8 @@ class _BetterFoodsListWidgetState extends State<BetterFoodsListWidget> {
   @override
   void initState() {
     super.initState();
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'BetterFoodsList'});
     searchBarController = TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
