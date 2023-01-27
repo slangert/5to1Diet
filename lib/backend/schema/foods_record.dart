@@ -35,6 +35,8 @@ abstract class FoodsRecord implements Built<FoodsRecord, FoodsRecordBuilder> {
 
   double? get foodSugar;
 
+  String? get foodImage;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -52,7 +54,8 @@ abstract class FoodsRecord implements Built<FoodsRecord, FoodsRecordBuilder> {
     ..foodSaturatedFat = 0.0
     ..foodSodium = 0.0
     ..foodCholesterol = 0.0
-    ..foodSugar = 0.0;
+    ..foodSugar = 0.0
+    ..foodImage = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('Foods');
@@ -89,6 +92,7 @@ Map<String, dynamic> createFoodsRecordData({
   double? foodSodium,
   double? foodCholesterol,
   double? foodSugar,
+  String? foodImage,
 }) {
   final firestoreData = serializers.toFirestore(
     FoodsRecord.serializer,
@@ -106,7 +110,8 @@ Map<String, dynamic> createFoodsRecordData({
         ..foodSaturatedFat = foodSaturatedFat
         ..foodSodium = foodSodium
         ..foodCholesterol = foodCholesterol
-        ..foodSugar = foodSugar,
+        ..foodSugar = foodSugar
+        ..foodImage = foodImage,
     ),
   );
 

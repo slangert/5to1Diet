@@ -1,13 +1,16 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
+import '../flutter_flow/flutter_flow_expanded_image_view.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 
 class FoodFormWidget extends StatefulWidget {
   const FoodFormWidget({
@@ -294,6 +297,47 @@ class _FoodFormWidgetState extends State<FoodFormWidget> {
                       ),
                     ),
                     style: FlutterFlowTheme.of(context).bodyText1,
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                    child: InkWell(
+                      onTap: () async {
+                        logFirebaseEvent(
+                            'FOOD_FORM_CircleImage_jh46jcr2_ON_TAP');
+                        logFirebaseEvent('CircleImage_expand_image');
+                        await Navigator.push(
+                          context,
+                          PageTransition(
+                            type: PageTransitionType.fade,
+                            child: FlutterFlowExpandedImageView(
+                              image: CachedNetworkImage(
+                                imageUrl: foodFormFoodsRecord.foodImage!,
+                                fit: BoxFit.contain,
+                              ),
+                              allowRotation: false,
+                              tag: foodFormFoodsRecord.foodImage!,
+                              useHeroAnimation: true,
+                            ),
+                          ),
+                        );
+                      },
+                      child: Hero(
+                        tag: foodFormFoodsRecord.foodImage!,
+                        transitionOnUserGestures: true,
+                        child: Container(
+                          width: 400,
+                          height: 400,
+                          clipBehavior: Clip.antiAlias,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                          ),
+                          child: CachedNetworkImage(
+                            imageUrl: foodFormFoodsRecord.foodImage!,
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),

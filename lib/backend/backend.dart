@@ -7,6 +7,7 @@ import '../flutter_flow/flutter_flow_util.dart';
 
 import 'schema/foods_record.dart';
 import 'schema/users_record.dart';
+import 'schema/calorie_tracker_record.dart';
 import 'schema/serializers.dart';
 
 export 'dart:async' show StreamSubscription;
@@ -16,6 +17,7 @@ export 'schema/serializers.dart';
 
 export 'schema/foods_record.dart';
 export 'schema/users_record.dart';
+export 'schema/calorie_tracker_record.dart';
 
 /// Functions to query FoodsRecords (as a Stream and as a Future).
 Future<int> queryFoodsRecordCount({
@@ -115,6 +117,58 @@ Future<FFFirestorePage<UsersRecord>> queryUsersRecordPage({
     queryCollectionPage(
       UsersRecord.collection,
       UsersRecord.serializer,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    );
+
+/// Functions to query CalorieTrackerRecords (as a Stream and as a Future).
+Future<int> queryCalorieTrackerRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      CalorieTrackerRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<CalorieTrackerRecord>> queryCalorieTrackerRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      CalorieTrackerRecord.collection,
+      CalorieTrackerRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<CalorieTrackerRecord>> queryCalorieTrackerRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      CalorieTrackerRecord.collection,
+      CalorieTrackerRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<CalorieTrackerRecord>> queryCalorieTrackerRecordPage({
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+}) =>
+    queryCollectionPage(
+      CalorieTrackerRecord.collection,
+      CalorieTrackerRecord.serializer,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,

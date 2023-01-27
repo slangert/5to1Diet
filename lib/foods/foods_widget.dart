@@ -1,11 +1,13 @@
 import '../backend/backend.dart';
+import '../flutter_flow/flutter_flow_expanded_image_view.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 
 class FoodsWidget extends StatefulWidget {
   const FoodsWidget({Key? key}) : super(key: key);
@@ -280,36 +282,53 @@ class _FoodsWidgetState extends State<FoodsWidget> {
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
+                                    InkWell(
+                                      onTap: () async {
+                                        logFirebaseEvent(
+                                            'FOODS_PAGE_CircleImage_xmjdwp9i_ON_TAP');
+                                        logFirebaseEvent(
+                                            'CircleImage_expand_image');
+                                        await Navigator.push(
+                                          context,
+                                          PageTransition(
+                                            type: PageTransitionType.fade,
+                                            child: FlutterFlowExpandedImageView(
+                                              image: CachedNetworkImage(
+                                                imageUrl: columnFoodsRecord
+                                                    .foodImage!,
+                                                fit: BoxFit.contain,
+                                              ),
+                                              allowRotation: false,
+                                              tag: columnFoodsRecord.foodImage!,
+                                              useHeroAnimation: true,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      child: Hero(
+                                        tag: columnFoodsRecord.foodImage!,
+                                        transitionOnUserGestures: true,
+                                        child: Container(
+                                          width: 80,
+                                          height: 80,
+                                          clipBehavior: Clip.antiAlias,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: CachedNetworkImage(
+                                            imageUrl:
+                                                columnFoodsRecord.foodImage!,
+                                            fit: BoxFit.fill,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                     Expanded(
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             5, 5, 5, 5),
                                         child: Text(
                                           columnFoodsRecord.foodName!,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1,
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            5, 5, 5, 5),
-                                        child: AutoSizeText(
-                                          columnFoodsRecord.foodCarbs!
-                                              .toString(),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1,
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            5, 5, 5, 5),
-                                        child: Text(
-                                          columnFoodsRecord.foodFiber!
-                                              .toString(),
                                           style: FlutterFlowTheme.of(context)
                                               .bodyText1,
                                         ),

@@ -1,5 +1,4 @@
 import '../auth/auth_util.dart';
-import '../auth/firebase_user_provider.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
@@ -59,7 +58,7 @@ class _LoginWidgetState extends State<LoginWidget> {
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
                 child: Column(
-                  mainAxisSize: MainAxisSize.max,
+                  mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -68,26 +67,24 @@ class _LoginWidgetState extends State<LoginWidget> {
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          if (loggedIn)
-                            Image.network(
-                              'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/template-screens-hpce0u/assets/xofl99y11az0/@3xlogo_primary_color_white.png',
-                              width: 242,
-                              height: 60,
-                              fit: BoxFit.fitWidth,
-                            ),
-                        ],
+                        children: [],
                       ),
                     ),
                     Text(
                       'Get Started',
                       style: FlutterFlowTheme.of(context).title1,
                     ),
-                    Image.asset(
-                      'assets/images/8EA37A7E-5FEF-44B6-84BC-58D66709BF16.jpeg',
-                      width: 242,
-                      height: 60,
-                      fit: BoxFit.fitWidth,
+                    Container(
+                      width: 80,
+                      height: 80,
+                      clipBehavior: Clip.antiAlias,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                      ),
+                      child: Image.asset(
+                        'assets/images/F1Logo.png',
+                        fit: BoxFit.cover,
+                      ),
                     ),
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
@@ -378,112 +375,70 @@ class _LoginWidgetState extends State<LoginWidget> {
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          InkWell(
-                            onTap: () async {
-                              logFirebaseEvent(
-                                  'LOGIN_PAGE_Container_15nfcusd_ON_TAP');
-                              logFirebaseEvent('Container_auth');
-                              GoRouter.of(context).prepareAuthEvent();
-                              final user = await signInWithGoogle(context);
-                              if (user == null) {
-                                return;
-                              }
-
-                              context.goNamedAuth('Dashboard', mounted);
-                            },
-                            child: Container(
-                              width: 50,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                boxShadow: [
-                                  BoxShadow(
-                                    blurRadius: 5,
-                                    color: Color(0x3314181B),
-                                    offset: Offset(0, 2),
-                                  )
-                                ],
-                                shape: BoxShape.circle,
-                              ),
-                              alignment: AlignmentDirectional(0, 0),
-                              child: FaIcon(
-                                FontAwesomeIcons.google,
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                size: 24,
-                              ),
+                          Container(
+                            width: 50,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context).primaryText,
+                              boxShadow: [
+                                BoxShadow(
+                                  blurRadius: 5,
+                                  color: Color(0x3314181B),
+                                  offset: Offset(0, 2),
+                                )
+                              ],
+                              shape: BoxShape.circle,
+                            ),
+                            alignment: AlignmentDirectional(0, 0),
+                            child: FaIcon(
+                              FontAwesomeIcons.google,
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                              size: 24,
                             ),
                           ),
-                          InkWell(
-                            onTap: () async {
-                              logFirebaseEvent(
-                                  'LOGIN_PAGE_Container_wy6iza6g_ON_TAP');
-                              logFirebaseEvent('Container_auth');
-                              GoRouter.of(context).prepareAuthEvent();
-                              final user = await signInWithApple(context);
-                              if (user == null) {
-                                return;
-                              }
-
-                              context.goNamedAuth('Dashboard', mounted);
-                            },
-                            child: Container(
-                              width: 50,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                boxShadow: [
-                                  BoxShadow(
-                                    blurRadius: 5,
-                                    color: Color(0x3314181B),
-                                    offset: Offset(0, 2),
-                                  )
-                                ],
-                                shape: BoxShape.circle,
-                              ),
-                              alignment: AlignmentDirectional(0, 0),
-                              child: FaIcon(
-                                FontAwesomeIcons.apple,
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                size: 24,
-                              ),
+                          Container(
+                            width: 50,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context).primaryText,
+                              boxShadow: [
+                                BoxShadow(
+                                  blurRadius: 5,
+                                  color: Color(0x3314181B),
+                                  offset: Offset(0, 2),
+                                )
+                              ],
+                              shape: BoxShape.circle,
+                            ),
+                            alignment: AlignmentDirectional(0, 0),
+                            child: FaIcon(
+                              FontAwesomeIcons.apple,
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                              size: 24,
                             ),
                           ),
-                          InkWell(
-                            onTap: () async {
-                              logFirebaseEvent(
-                                  'LOGIN_PAGE_Container_r322ognh_ON_TAP');
-                              logFirebaseEvent('Container_auth');
-                              GoRouter.of(context).prepareAuthEvent();
-                              final user = await signInWithFacebook(context);
-                              if (user == null) {
-                                return;
-                              }
-
-                              context.goNamedAuth('Dashboard', mounted);
-                            },
-                            child: Container(
-                              width: 50,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                boxShadow: [
-                                  BoxShadow(
-                                    blurRadius: 5,
-                                    color: Color(0x3314181B),
-                                    offset: Offset(0, 2),
-                                  )
-                                ],
-                                shape: BoxShape.circle,
-                              ),
-                              alignment: AlignmentDirectional(0, 0),
-                              child: FaIcon(
-                                FontAwesomeIcons.facebookF,
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                size: 24,
-                              ),
+                          Container(
+                            width: 50,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context).primaryText,
+                              boxShadow: [
+                                BoxShadow(
+                                  blurRadius: 5,
+                                  color: Color(0x3314181B),
+                                  offset: Offset(0, 2),
+                                )
+                              ],
+                              shape: BoxShape.circle,
+                            ),
+                            alignment: AlignmentDirectional(0, 0),
+                            child: FaIcon(
+                              FontAwesomeIcons.facebookF,
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                              size: 24,
                             ),
                           ),
                         ],
@@ -500,8 +455,21 @@ class _LoginWidgetState extends State<LoginWidget> {
                             style: FlutterFlowTheme.of(context).bodyText1,
                           ),
                           FFButtonWidget(
-                            onPressed: () {
-                              print('Button pressed ...');
+                            onPressed: () async {
+                              logFirebaseEvent('LOGIN_PAGE_LOG_IN_BTN_ON_TAP');
+                              logFirebaseEvent('Button_auth');
+                              GoRouter.of(context).prepareAuthEvent();
+
+                              final user = await signInWithEmail(
+                                context,
+                                emailAddressController!.text,
+                                passwordController!.text,
+                              );
+                              if (user == null) {
+                                return;
+                              }
+
+                              context.goNamedAuth('Dashboard', mounted);
                             },
                             text: 'Log In',
                             options: FFButtonOptions(

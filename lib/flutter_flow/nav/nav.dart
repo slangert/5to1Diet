@@ -126,6 +126,25 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'BetterFoodsList',
               path: 'betterFoodsList',
               builder: (context, params) => BetterFoodsListWidget(),
+            ),
+            FFRoute(
+              name: 'ProfilePage',
+              path: 'profilePage',
+              builder: (context, params) => ProfilePageWidget(),
+            ),
+            FFRoute(
+              name: 'calorieTrackerForm',
+              path: 'calorieTrackerForm',
+              builder: (context, params) => params.isEmpty
+                  ? NavBarPage(initialPage: 'calorieTrackerForm')
+                  : CalorieTrackerFormWidget(),
+            ),
+            FFRoute(
+              name: 'CalorieTrackerInput',
+              path: 'calorieTrackerInput',
+              builder: (context, params) => params.isEmpty
+                  ? NavBarPage(initialPage: 'CalorieTrackerInput')
+                  : CalorieTrackerInputWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),

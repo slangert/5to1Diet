@@ -110,6 +110,13 @@ class _$FoodsRecordSerializer implements StructuredSerializer<FoodsRecord> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(double)));
     }
+    value = object.foodImage;
+    if (value != null) {
+      result
+        ..add('foodImage')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -184,6 +191,10 @@ class _$FoodsRecordSerializer implements StructuredSerializer<FoodsRecord> {
           result.foodSugar = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double?;
           break;
+        case 'foodImage':
+          result.foodImage = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -225,6 +236,8 @@ class _$FoodsRecord extends FoodsRecord {
   @override
   final double? foodSugar;
   @override
+  final String? foodImage;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$FoodsRecord([void Function(FoodsRecordBuilder)? updates]) =>
@@ -244,6 +257,7 @@ class _$FoodsRecord extends FoodsRecord {
       this.foodSodium,
       this.foodCholesterol,
       this.foodSugar,
+      this.foodImage,
       this.ffRef})
       : super._();
 
@@ -271,6 +285,7 @@ class _$FoodsRecord extends FoodsRecord {
         foodSodium == other.foodSodium &&
         foodCholesterol == other.foodCholesterol &&
         foodSugar == other.foodSugar &&
+        foodImage == other.foodImage &&
         ffRef == other.ffRef;
   }
 
@@ -289,22 +304,26 @@ class _$FoodsRecord extends FoodsRecord {
                                             $jc(
                                                 $jc(
                                                     $jc(
-                                                        $jc(0,
-                                                            foodName.hashCode),
-                                                        foodTextServingSize
+                                                        $jc(
+                                                            $jc(
+                                                                0,
+                                                                foodName
+                                                                    .hashCode),
+                                                            foodTextServingSize
+                                                                .hashCode),
+                                                        foodGramServingSize
                                                             .hashCode),
-                                                    foodGramServingSize
-                                                        .hashCode),
-                                                foodCalories.hashCode),
-                                            foodCarbs.hashCode),
-                                        foodFiber.hashCode),
-                                    food5to1.hashCode),
-                                foodProtein.hashCode),
-                            foodFat.hashCode),
-                        foodSaturatedFat.hashCode),
-                    foodSodium.hashCode),
-                foodCholesterol.hashCode),
-            foodSugar.hashCode),
+                                                    foodCalories.hashCode),
+                                                foodCarbs.hashCode),
+                                            foodFiber.hashCode),
+                                        food5to1.hashCode),
+                                    foodProtein.hashCode),
+                                foodFat.hashCode),
+                            foodSaturatedFat.hashCode),
+                        foodSodium.hashCode),
+                    foodCholesterol.hashCode),
+                foodSugar.hashCode),
+            foodImage.hashCode),
         ffRef.hashCode));
   }
 
@@ -324,6 +343,7 @@ class _$FoodsRecord extends FoodsRecord {
           ..add('foodSodium', foodSodium)
           ..add('foodCholesterol', foodCholesterol)
           ..add('foodSugar', foodSugar)
+          ..add('foodImage', foodImage)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -388,6 +408,10 @@ class FoodsRecordBuilder implements Builder<FoodsRecord, FoodsRecordBuilder> {
   double? get foodSugar => _$this._foodSugar;
   set foodSugar(double? foodSugar) => _$this._foodSugar = foodSugar;
 
+  String? _foodImage;
+  String? get foodImage => _$this._foodImage;
+  set foodImage(String? foodImage) => _$this._foodImage = foodImage;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -412,6 +436,7 @@ class FoodsRecordBuilder implements Builder<FoodsRecord, FoodsRecordBuilder> {
       _foodSodium = $v.foodSodium;
       _foodCholesterol = $v.foodCholesterol;
       _foodSugar = $v.foodSugar;
+      _foodImage = $v.foodImage;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -448,6 +473,7 @@ class FoodsRecordBuilder implements Builder<FoodsRecord, FoodsRecordBuilder> {
             foodSodium: foodSodium,
             foodCholesterol: foodCholesterol,
             foodSugar: foodSugar,
+            foodImage: foodImage,
             ffRef: ffRef);
     replace(_$result);
     return _$result;

@@ -1,3 +1,4 @@
+import '../auth/auth_util.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,29 @@ class _DashboardWidgetState extends State<DashboardWidget> {
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          logFirebaseEvent('DASHBOARD_FloatingActionButton_2yr6z0mw_');
+          logFirebaseEvent('FloatingActionButton_auth');
+          GoRouter.of(context).prepareAuthEvent();
+          await signOut();
+          logFirebaseEvent('FloatingActionButton_navigate_to');
+
+          context.pushNamedAuth(
+            'Login',
+            mounted,
+            extra: <String, dynamic>{
+              kTransitionInfoKey: TransitionInfo(
+                hasTransition: true,
+                transitionType: PageTransitionType.fade,
+                duration: Duration(milliseconds: 30),
+              ),
+            },
+          );
+        },
+        backgroundColor: FlutterFlowTheme.of(context).primaryColor,
+        elevation: 8,
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
